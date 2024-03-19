@@ -44,10 +44,6 @@ export default function Header() {
                                 <LoginIcon/>
                                 <a className="nav-link" href="#">Iniciar sesión</a>
                             </li>
-                            <li className="nav-item">
-                                <LoginIcon/>
-                                <a className="nav-link" href="#">Iniciar sesión</a>
-                            </li>
                         </ul>
                         <form className="d-flex" role="search">
                             <input className="form-control me-2" type="search" placeholder="Buscar" aria-label="Search"/>
