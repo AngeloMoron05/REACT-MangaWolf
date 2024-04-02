@@ -3,33 +3,39 @@
     display: flex;
     margin: 2%;
     padding: 2%;
-    flex-flow: row wrap;    
+    flex-flow: row wrap;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
 }
+
 .card2{
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    border-radius: 5px;
     padding: 1%;
-    height: max-content;
-    margin: 5px;
-    width: 19%;
+    border-radius: 5%;
+    margin: 10px;
+    height: fit-content;
+    width: 17%;
 }
+
 .card2:hover{
-    transform: scale(1.2);
+    /*transform: scale(1.1);*/
+    border: lightblue solid 7px;
+    width: 20%;
+    transition-duration: .2s;
 }
-img{
+
+.covers{
     border-radius: 9px;
-    width: 90%;
-    margin: auto;
-    display: block;    
+    width: 200px;
+    height: 300px;
+    margin: auto;   
 }
+
 .card2 h5{
     text-align: center;
 }
+
 .card2 p{
     text-align: justify;
-}
-.card2 button{
-    /* para centrar el botón */
-    margin-left: 50%;
-    transform: translateX(-50%);
 }

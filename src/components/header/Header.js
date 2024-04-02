@@ -7,6 +7,7 @@ import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import LoginIcon from '@mui/icons-material/Login';
+import {Link} from 'react-router-dom';
 
 export default function Header() {
     return (
@@ -15,33 +16,35 @@ export default function Header() {
                 <div className="container-fluid">
                     <img src='logo.png' alt='logo' className='logo'/>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <HomeIcon/>
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0 lista">
+                            <li className="nav-item itemLista">
+                                <HomeIcon className='negro'/>
                                 <a className="nav-link active" aria-current="page" href="#">Inicio</a>
                             </li>
-                            <li className="nav-item">
-                                <PlayArrowIcon/>
+                            <li className="nav-item itemLista">
+                                <PlayArrowIcon className='negro'/>
                                 <a className="nav-link" href="#">Tutoriales</a>
                             </li>
-                            <li className="nav-item">
-                                <SubjectIcon/>
+                            <li className="nav-item itemLista">
+                                <SubjectIcon className='negro'/>
                                 <a className="nav-link" href="#">Referencias</a>
                             </li>
-                            <li className="nav-item">
-                                <CreateNewFolderIcon/>
+                            <li className="nav-item itemLista">
+                                <CreateNewFolderIcon className='negro'/>
                                 <a className="nav-link" href="#">Recursos</a>
                             </li>
-                            <li className="nav-item">
-                                <LocalPhoneIcon/>
+                            <li className="nav-item itemLista">
+                                <LocalPhoneIcon className='negro'/>
                                 <a className="nav-link" href="#">Contacto</a>
                             </li>
-                            <li className="nav-item">
-                                <PersonAddAlt1Icon/>
-                                <a className="nav-link" href="#">Registrarse</a>
-                            </li>
-                            <li className="nav-item">
-                                <LoginIcon/>
+                            <Link to='/registro'>
+                                <li className="nav-item itemLista">
+                                    <PersonAddAlt1Icon className='negro'/>
+                                    <a className="nav-link" href="#">Registrarse</a>
+                                </li>
+                            </Link>
+                            <li className="nav-item itemLista">
+                                <LoginIcon className='negro'/>
                                 <a className="nav-link" href="#">Iniciar sesión</a>
                             </li>
                         </ul>
