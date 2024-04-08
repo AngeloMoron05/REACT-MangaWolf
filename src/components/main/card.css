@@ -38,12 +38,11 @@
 
 p{
     /*border: red 2px solid;*/
-    width: 195px;
+    width: 265px;
     height: auto;
-    margin-left: 12px;
 }
 
 .card2:hover p{
-    margin-left: 25px;
-    transition-duration: .2s;
+    width: 265px;
+    margin-left: 16px;
 }

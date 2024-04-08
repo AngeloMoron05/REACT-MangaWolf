@@ -1,5 +1,4 @@
 import React from 'react'
-
 import imagen1 from './imagen1.jpg'
 import imagen2 from './imagen2.jpg'
 import imagen3 from './imagen3.jpg'
