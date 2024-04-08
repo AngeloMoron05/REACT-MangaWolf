@@ -21,7 +21,7 @@ export default [
         fechaLanzamiento:"15-01-2018",
         description: "Sono Bisque Doll wa Koi wo Suru es un manga sobre Wakana Gojo, un hábil artista de muñecas, y Marin Kitagawa, una entusiasta del cosplay. La historia sigue su crecimiento personal y su relación mientras exploran el mundo del cosplay y el arte.",        
         image: doll,
-        precio:"$1000"
+        precio:"$25000"
     },
 
     {

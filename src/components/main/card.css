@@ -1,5 +1,5 @@
 .divCards{
-    box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+    box-shadow: rgba(30, 202, 211, 0.4) -5px 5px, rgba(30, 202, 211, 0.3) -10px 10px, rgba(30, 202, 211, 0.2) -15px 15px, rgba(30, 202, 211, 0.1) -20px 20px, rgba(30, 202, 211, 0.05) -25px 25px;
     display: flex;
     margin: 2%;
     padding: 2%;
@@ -19,7 +19,7 @@
 }
 
 .card2:hover{
-    /*transform: scale(1.1);*/
+    transform: scale(1.05);
     border: lightblue solid 7px;
     width: 20%;
     transition-duration: .2s;
@@ -32,10 +32,18 @@
     margin: auto;   
 }
 
-.card2 h5{
-    text-align: center;
-}
-
 .card2 p{
     text-align: justify;
+}
+
+p{
+    /*border: red 2px solid;*/
+    width: 195px;
+    height: auto;
+    margin-left: 12px;
+}
+
+.card2:hover p{
+    margin-left: 25px;
+    transition-duration: .2s;
 }
