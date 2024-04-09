@@ -15,3 +15,9 @@
 .btncont{
     text-align: center;
 }
+
+.error{
+    color: red;
+    width: 100%;
+    font-size: 12px;
+}
