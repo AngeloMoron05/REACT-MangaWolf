@@ -38,11 +38,11 @@
 
 p{
     /*border: red 2px solid;*/
-    width: 265px;
+    width: auto;
     height: auto;
 }
 
-.card2:hover p{
-    width: 265px;
+/*.card2:hover p{
+    width: auto;
     margin-left: 16px;
-}
+}*/

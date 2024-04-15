@@ -12,11 +12,11 @@ app.get('/', (req, res) => {
     res.send("Saludando desde el backend");
 });
 
+const user = requiere("./controller/userController");
+app.use("/registro-usuario", user.register);
+app.use("/login", user.login);
+
 const PORT = 3001;
 app.listen(PORT,()=>{
     console.log("Servidor corriendo en el puerto", PORT);
 });
-
-const user = requiere("./controller/userController");
-app.use("/registro-usuario", user.register);
-app.use("/login", user.login);

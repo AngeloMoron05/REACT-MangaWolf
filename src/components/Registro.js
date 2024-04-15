@@ -1,8 +1,12 @@
 import React from 'react'
 import Header from "./header/Header";
 import Footer from './footer/Footer';
-import './registro/registro.css'
+import './registro/registro.css';
+import './registro/colombia.js';
 import { useState } from 'react';
+import { useRef } from 'react';
+import { Swal } from 'react';
+import colombia from './registro/colombia.js';
 
 export default function Registro() {
   const [values, setValues] = useState({
@@ -57,6 +61,8 @@ export default function Registro() {
   const [errorVrfPassword, seterrorVrfPassword] = useState(false);
   const [errorVrfPasswordEmpty, seterrorVrfPasswordEmpty] = useState(false);
 
+  const form = useRef();
+
   const handleChange = (e) => {
     const {name, value} = e.target;
     const newValues = {
@@ -108,8 +114,52 @@ export default function Registro() {
     }else if(values.vrfpassword!=values.password){
       seterrorVrfPassword(true);
     }
-  }
 
+    fetch("http://localhost:3001/registro-usuario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(values),
+    })
+    .then((response) => {
+      if(response.status === 200) {
+        // alert("Usuario creado con exito")
+        Swal.fire({
+          title: "Usuario creado con exito",
+          icon: "success",
+        })
+        form.current.reset();
+        window.location.hash = "/login";
+      }
+      if(response.status === 400){
+        //alert("" + response.status)
+        Swal.fire({
+          title: "No fue posible crear el usuario porque ya existe el correo ingresado "+values.email,
+          icon: "warning",
+        });
+      }
+    })
+    .catch((error) => {
+      //alert("No fue posible finalizar el proceso de registro por un error "+error)
+      Swal.fire({
+        title: "No fue posible finalizar el proceso de registro por un error interno del servidor",
+        icon: "error",
+      });
+    });
+  };
+
+  const optionsDepartamentos = colombia.map(items => {
+    return(
+      <option id={items.id}>{items.departamento}</option>
+    )
+  });
+  const optionsMunicipios = colombia.map(items => {
+    return(
+      <option id={items.ciudades}>{items.ciudades}</option>
+    )
+  });
 
   return (
     <div>
@@ -179,6 +229,18 @@ export default function Registro() {
               {errorVrfPasswordEmpty ? <p className='error'>Debe ingresar de nuevo la contraseña.</p> : ""}
               {errorVrfPassword ? <p className='error'>Las contraseñas no coinciden.</p> : ""}
             </div>
+            <br></br>
+
+            <div class="form-group">
+              <label>Direccion</label>
+              <select id="estados">
+                {optionsDepartamentos}
+              </select>
+              <select id="municipios">
+                <option>Hola</option>
+              </select>
+            </div>
+
             <br></br>
 
             <div className='btncont'>
