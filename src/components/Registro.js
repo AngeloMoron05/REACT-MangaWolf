@@ -5,7 +5,7 @@ import './registro/registro.css';
 import './registro/colombia.js';
 import { useState } from 'react';
 import { useRef } from 'react';
-import { Swal } from 'react';
+import Swal  from 'sweetalert2';
 import colombia from './registro/colombia.js';
 
 export default function Registro() {
@@ -41,6 +41,7 @@ export default function Registro() {
   }
   function func_errorBornDate(){
     seterrorBornDate(false);
+    seterrorBornDateAge(false);
   }
   function func_errorPassword(){
     seterrorPassword(false);
@@ -57,6 +58,7 @@ export default function Registro() {
   const [errorAdress, seterrorAdress] = useState(false);
   const [errorPhone, seterrorPhone] = useState(false);
   const [errorBornDate, seterrorBornDate] = useState(false);
+  const [errorBornDateAge, seterrorBornDateAge] = useState(false);
   const [errorPassword, seterrorPassword] = useState(false);
   const [errorVrfPassword, seterrorVrfPassword] = useState(false);
   const [errorVrfPasswordEmpty, seterrorVrfPasswordEmpty] = useState(false);
@@ -77,42 +79,49 @@ export default function Registro() {
 
     const vefEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const vefPassword = /^(?=.*[A-Z])(?=(?:.*\d){2,}).{9,}$/;
+    let fechaActual = new Date();
+    let fechaActualStrg = fechaActual.toISOString();
+    let year = parseInt(fechaActualStrg.substring(0,4));
 
-    if(values.id.length < 5 || values.id.length > 10 || values.id.length==0) {
+    if(values.id.length < 5 || values.id.length > 10 || values.id.length===0) {
       seterrorID(true);
       return;
-    }else if(values.names.length < 3 || values.names.length==0){
+    }else if(values.names.length < 3 || values.names.length===0){
       seterrorNames(true);
       return;
-    }else if(values.lastname.length < 3 || values.lastname.length==0){
+    }else if(values.lastname.length < 3 || values.lastname.length===0){
       seterrorLastName(true);
       return;
-    }else if(values.email.length==0){
+    }else if(values.email.length===0){
       seterrorEmail(true);
       return;
     }else if(!vefEmail.test(values.email)){
       seterrorEmail(true);
       return;
-    }else if(values.adress.length==0){
+    }else if(values.adress.length===0){
       seterrorAdress(true);
       return;
-    }else if(values.phone.length < 10 || values.phone.length==0){
+    }else if(values.phone.length < 10 || values.phone.length===0){
       seterrorPhone(true);
       return;
-    }else if(values.borndate.length==0){
+    }else if(values.borndate.length===0){
       seterrorBornDate(true);
       return;
-    }else if(values.password.length == 0){
+    }else if(parseInt(values.borndate.substring(0,4))>(year-16)){
+      seterrorBornDateAge(true);
+      return;
+    }else if(values.password.length === 0){
       seterrorPassword(true);
       return;
     }else if(!vefPassword.test(values.password)){
       seterrorPassword(true);
       return;
-    }else if(values.vrfpassword.length == 0){
+    }else if(values.vrfpassword.length === 0){
       seterrorVrfPasswordEmpty(true);
       return;
-    }else if(values.vrfpassword!=values.password){
+    }else if(values.vrfpassword!==values.password){
       seterrorVrfPassword(true);
+      return;
     }
 
     fetch("http://localhost:3001/registro-usuario", {
@@ -125,7 +134,6 @@ export default function Registro() {
     })
     .then((response) => {
       if(response.status === 200) {
-        // alert("Usuario creado con exito")
         Swal.fire({
           title: "Usuario creado con exito",
           icon: "success",
@@ -134,7 +142,6 @@ export default function Registro() {
         window.location.hash = "/login";
       }
       if(response.status === 400){
-        //alert("" + response.status)
         Swal.fire({
           title: "No fue posible crear el usuario porque ya existe el correo ingresado "+values.email,
           icon: "warning",
@@ -142,7 +149,6 @@ export default function Registro() {
       }
     })
     .catch((error) => {
-      //alert("No fue posible finalizar el proceso de registro por un error "+error)
       Swal.fire({
         title: "No fue posible finalizar el proceso de registro por un error interno del servidor",
         icon: "error",
@@ -150,7 +156,7 @@ export default function Registro() {
     });
   };
 
-  const optionsDepartamentos = colombia.map(items => {
+  /*const optionsDepartamentos = colombia.map(items => {
     return(
       <option id={items.id}>{items.departamento}</option>
     )
@@ -159,14 +165,18 @@ export default function Registro() {
     return(
       <option id={items.ciudades}>{items.ciudades}</option>
     )
-  });
+  });*/
 
   return (
     <div>
       <Header/>
       <div className='bigcont'>
         <div className='cont'>
-          <form onSubmit={handleSubmit}>
+          <div className="titulo">
+            <h2>Registrarse</h2>
+          </div>
+          <br></br>
+          <form onSubmit={handleSubmit} ref={form}>
             <div class="form-group">
               <label for="exampleInputEmail1">Identificacion</label>
               <input id="id" type="number" class="form-control" placeholder="1234567890" name='id' onChange={handleChange} onClick={func_errorId}></input>
@@ -213,6 +223,7 @@ export default function Registro() {
               <label for="exampleInputEmail1">Fecha Nacimiento</label>
               <input id="borndate" type="date" class="form-control" name='borndate' onChange={handleChange} onClick={func_errorBornDate}></input>
               {errorBornDate ? <p className='error'>Debe ingresar su fecha de nacimiento.</p> : ""}
+              {errorBornDateAge ? <p className='error'>Debe ser mayor a 16 años.</p> : ""}
             </div>
             <br></br>
 
@@ -231,15 +242,17 @@ export default function Registro() {
             </div>
             <br></br>
 
-            <div class="form-group">
+            {/* <div class="form-group">
               <label>Direccion</label>
+              <br></br>
               <select id="estados">
+                <option>Seleccionar</option>
                 {optionsDepartamentos}
               </select>
               <select id="municipios">
-                <option>Hola</option>
+                <option>Seleccionar</option>
               </select>
-            </div>
+            </div> */}
 
             <br></br>
 

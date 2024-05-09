@@ -1,5 +1,6 @@
 const fs = require("fs").promises;
 const path = require("path");
+const { title } = require("process");
 
 const userFilePath = path.join(
     __dirname,
@@ -55,11 +56,14 @@ const controller = {
 
             for(x of users){
                 if(x.email === req.body.email && x.password === req.body.password && x.rol === req.body.rol){
-                    res.status(200).send("Ok");
-                    return;
+                    return res.json({
+                        names: x.names,
+                        lastname: x.lastname,
+                        email: x.email,
+                    });
                 }
             }
-            res.status(400).send("Error");
+            res.json({ title: "error"});
         }catch(error){
             console.error("Error al procesar el registro: ", error);
             res.status(500).send("Error interno del servidor");

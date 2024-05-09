@@ -1,12 +1,11 @@
 import React from 'react'
-import "./header.css"
+import "./headerSesion.css"
 import HomeIcon from '@mui/icons-material/Home';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SubjectIcon from '@mui/icons-material/Subject';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
 import {Link} from 'react-router-dom';
 
 export default function Header() {
@@ -37,16 +36,10 @@ export default function Header() {
                                 <LocalPhoneIcon className='negro'/>
                                 <a className="nav-link" href="#">Contacto</a>
                             </li>
-                            <Link to='/registro'>
+                            <Link to="/login">
                                 <li className="nav-item itemLista">
-                                    <PersonAddAlt1Icon className='negro'/>
-                                    <a className="nav-link" href="#">Registrarse</a>
-                                </li>
-                            </Link>
-                            <Link to='/login'>
-                                <li className="nav-item itemLista">
-                                    <LoginIcon className='negro'/>
-                                    <a className="nav-link" href="#">Iniciar sesión</a>
+                                    <LogoutIcon className='negro'/>
+                                    <a className="nav-link" href="#">Cerrar Sesion</a>
                                 </li>
                             </Link>
                         </ul>
