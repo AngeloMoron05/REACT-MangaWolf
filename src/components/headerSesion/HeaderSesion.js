@@ -6,9 +6,16 @@ import SubjectIcon from '@mui/icons-material/Subject';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import LogoutIcon from '@mui/icons-material/Logout';
-import {Link} from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 export default function Header() {
+    const cookies = new Cookies()
+    const cerrarSesion = () => {
+        cookies.remove("name");
+        cookies.remove("email");
+        cookies.remove("lastname");
+        window.location.href = '/login';
+    }
     return (
         <div className='contenedor'>
             <nav className="navbar navbar-expand-lg">
@@ -36,12 +43,10 @@ export default function Header() {
                                 <LocalPhoneIcon className='negro'/>
                                 <a className="nav-link" href="#">Contacto</a>
                             </li>
-                            <Link to="/login">
-                                <li className="nav-item itemLista">
-                                    <LogoutIcon className='negro'/>
-                                    <a className="nav-link" href="#">Cerrar Sesion</a>
-                                </li>
-                            </Link>
+                            <li className="nav-item itemLista">
+                                <LogoutIcon className='negro'/>
+                                <a className="nav-link" href="#" onClick={cerrarSesion}>Cerrar Sesion</a>
+                            </li>
                         </ul>
                         <form className="d-flex" role="search">
                             <input className="form-control me-2" type="search" placeholder="Buscar" aria-label="Search"/>

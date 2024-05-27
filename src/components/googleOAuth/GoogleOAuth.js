@@ -12,6 +12,7 @@ export default function GoogleOAuth() {
             <GoogleLogin
                 onSuccess={credentialResponse => {
                     const credentialResponseDecode = jwtDecode(credentialResponse.credential)
+                    console.log(credentialResponseDecode.name);
                     cookies.set('email', credentialResponseDecode.email, {
                         secure: true,
                         sameSite: 'None',

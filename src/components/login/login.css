@@ -25,3 +25,9 @@
 .titulo{
     text-align: center;
 }
+
+.btnGoogle{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

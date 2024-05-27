@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import Swal  from 'sweetalert2';
 import Cookies from 'universal-cookie';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import GoogleOAuth from './googleOAuth/GoogleOAuth.js';
 
 export default function Login() {
   const cookies = new Cookies();
@@ -152,6 +153,11 @@ export default function Login() {
 
             <div className='btncont'>
               <button type="submit" class="btn btn-primary" id="boton">Iniciar Sesion</button>
+            </div>
+            <br></br>
+
+            <div className='btnGoogle'>
+              <GoogleOAuth/>
             </div>
           </form>
         </div>

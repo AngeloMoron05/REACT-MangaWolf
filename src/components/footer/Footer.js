@@ -1,9 +1,10 @@
 import React from 'react'
+import "./footer.css"
 
 export default function Footer() {
     return (
         <div>
-            <footer class="text-center text-lg-start bg-light text-muted">
+            <footer class="text-center text-lg-start footer text-muted">
                 <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
                     <div class="me-5 d-none d-lg-block">
                         <span>Conéctate con nosotros en redes sociales:</span>
