@@ -7,8 +7,11 @@ import { useState } from 'react';
 import { useRef } from 'react';
 import Swal  from 'sweetalert2';
 import colombia from './registro/colombia.js';
+import { FeaturedPlayList } from '@mui/icons-material';
 
 export default function Registro() {
+  let URL = process.env.REACT_APP_ENVIRONMENT;
+
   const [values, setValues] = useState({
     id: "",
     names: "",
@@ -124,7 +127,16 @@ export default function Registro() {
       return;
     }
 
-    fetch("http://localhost:3001/registro-usuario", {
+    /*fetch("http://localhost:3001/registro-usuario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(values),
+    })*/
+    console.log(URL);
+    fetch(`${URL}/registro-usuario`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
