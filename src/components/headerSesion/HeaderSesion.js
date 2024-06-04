@@ -7,6 +7,7 @@ import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Cookies from 'universal-cookie';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export default function Header() {
     const cookies = new Cookies()
@@ -52,6 +53,12 @@ export default function Header() {
                             <input className="form-control me-2" type="search" placeholder="Buscar" aria-label="Search"/>
                             <button className="btn btn-outline-primary" type="submit">Buscar</button>
                         </form>
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0 lista">
+                            <li className="nav-item itemLista">
+                                <ShoppingCartIcon className='negro'/>
+                                <a className="nav-link" href="#">Carrito</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>

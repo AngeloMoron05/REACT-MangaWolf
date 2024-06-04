@@ -8,6 +8,7 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import LoginIcon from '@mui/icons-material/Login';
 import {Link} from 'react-router-dom';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export default function Header() {
     return (
@@ -54,6 +55,11 @@ export default function Header() {
                             <input className="form-control me-2" type="search" placeholder="Buscar" aria-label="Search"/>
                             <button className="btn btn-outline-primary" type="submit">Buscar</button>
                         </form>
+                        <ul className="navbar-nav mb-2 mb-lg-0 lista">
+                            <li className="nav-item itemLista">
+                                <a className="nav-link" href="#"><ShoppingCartIcon className='negro'/></a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>
