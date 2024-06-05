@@ -15,7 +15,8 @@ import spy from './spy_vol10.jpg'
 import titans from './titans_vol20.jpg'
 
 export default [
-    {   id:1,
+    {   
+        id:1,
         title: "Sono Bisque Doll wa Koi o Suru",
         autor: "Shinichi Fukuda",
         fechaLanzamiento:"15-01-2018",
@@ -36,8 +37,7 @@ export default [
         precio:25000,
         precioCarrito:25000,
         cantidad:1
-    }
-    ,
+    },
 
     {
         id:3,
@@ -49,8 +49,7 @@ export default [
         precio:25000,
         precioCarrito:25000,
         cantidad:1
-    }
-    ,
+    },
 
     {
         id:4,

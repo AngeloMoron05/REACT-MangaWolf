@@ -8,6 +8,7 @@ import DataProvider from './components/context/DataContext';
 import {Routes, Route, HashRouter} from "react-router-dom";
 import CarritoVacio from './components/carrito/CarritoVacio';
 import CarritoElements from './components/carrito/CarritoElements';
+import CarritoContents from './components/carrito/CarritoContents';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route exact path="/sesion" element={<Sesion/>}/>
           <Route exact path="/carrito-vacio" element={<CarritoVacio/>}/>
           <Route exact path="/carrito-elements" element={<CarritoElements/>}/>
+          <Route exact path="/carrito-contents" element={<CarritoContents/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </HashRouter>

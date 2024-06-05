@@ -56,9 +56,11 @@ export default function Header() {
                             <button className="btn btn-outline-primary" type="submit">Buscar</button>
                         </form>
                         <ul className="navbar-nav mb-2 mb-lg-0 lista">
-                            <li className="nav-item itemLista">
-                                <a className="nav-link" href="#"><ShoppingCartIcon className='negro'/></a>
-                            </li>
+                            <Link to='/carrito-contents'>
+                                <li className="nav-item itemLista">
+                                    <a className="nav-link" href="#"><ShoppingCartIcon className='negro'/></a>
+                                </li>
+                            </Link>
                         </ul>
                     </div>
                 </div>
