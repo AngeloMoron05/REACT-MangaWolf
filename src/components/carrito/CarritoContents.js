@@ -13,7 +13,7 @@ export default function CarritoContents() {
         return <CarritoVacio />
     }
 
-    const vaciaCarrito = () => {
+    const vaciarCarrito = () => {
         Swal.fire({
             icon: 'question',
             title: '¿Esta seguro que desea vaciar el contenido del carrito de compras?',
@@ -42,7 +42,7 @@ export default function CarritoContents() {
                     <div class="col-10">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h3 class="fw-normal mb-0 text-black">Carro de compras</h3>
-                            <button type='button' className='btn btn-warning btn-lg' onClick={vaciaCarrito}>Vaciar carrito <i className='bi bi-cart-x'></i></button>
+                            <button type='button' className='btn btn-warning btn-lg' onClick={vaciarCarrito}>Vaciar carrito <i className='bi bi-cart-x'></i></button>
                             <div>
                                 <Link to='/'><h4 className='mb-0'><span className='text-muted'>Seguir comprando</span></h4></Link>
                             </div>

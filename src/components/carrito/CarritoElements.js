@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 import { dataContext } from "../context/DataContext";
 
 function CarritoElements() {
@@ -10,12 +10,12 @@ function CarritoElements() {
     }
 
     const cantidad = () => {
-        setLibrosDelCarrito((actualesLibs) => {
-            return actualesLibs.map((libs) => {
+        setLibrosDelCarrito((actualeslibs) => {
+            return actualeslibs.map((libs) => {
                 const valor = document.getElementById(libs.id);
                 return { ...libs, precioCarrito: libs.precio * valor.value, cantidad: valor.value };
-            });
-        });
+            })
+        })
     }
 
     const formatoNumero = (number) => {
@@ -44,7 +44,7 @@ function CarritoElements() {
                                             <h5 className="mb-0">$ {formatoNumero(libs.precioCarrito)}</h5>
                                         </div>
                                         <div className="col-md-1 col-lg-1 col-xl-1 text-end">
-                                            <button className="btn btn-danger" id={libs.id} onClick={eliminarLibroDelCarrito}><i className="bi bi-trash3-fill"></i></button>
+                                            <button className="btn btn-danger" onClick={eliminarLibroDelCarrito}><i className="bi bi-trash3-fill"></i></button>
                                         </div>
                                     </div>
                                 </div>
