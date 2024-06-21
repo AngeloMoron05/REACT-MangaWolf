@@ -7,7 +7,7 @@ const DataProvider = ({children}) => {
     const [cantidadElementos, setCantidadElementos] = useState(0);
 
     return (
-        <dataContext.Provider value={{librosDelCarrito, setLibrosDelCarrito, cantidadElementos, setCantidadElementos}}>{children}</dataContext.Provider>
+        <dataContext.Provider value={(librosDelCarrito, setLibrosDelCarrito, cantidadElementos, setCantidadElementos)}>{children}</dataContext.Provider>
     )
 }
 
