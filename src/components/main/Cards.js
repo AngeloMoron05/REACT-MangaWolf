@@ -6,6 +6,7 @@ export default function Cards(props) {
     const { setLibrosDelCarrito } = useContext(dataContext);
 
     function addToCart(){
+        console.log(setLibrosDelCarrito);
         setLibrosDelCarrito((currentLibros) => {
             const isItemFound = currentLibros.find((item) => item.id === props.items.id);
             console.log("isItemFound---->>", isItemFound);
