@@ -21,8 +21,8 @@ export default function CarritoContents() {
             showConfirmButton: true,
             dangerMode: true,
         })
-            .then((results) => {
-                if (results.isConfirmed) {
+            .then((result) => {
+                if (result.isConfirmed) {
                     setLibrosDelCarrito([]);
                     return;
                 }

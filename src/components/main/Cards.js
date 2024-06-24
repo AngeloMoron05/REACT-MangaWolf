@@ -5,13 +5,13 @@ import { dataContext } from '../context/DataContext'
 export default function Cards(props) {
     const { setLibrosDelCarrito } = useContext(dataContext);
 
-    function addToCard(){
+    function addToCart(){
         setLibrosDelCarrito((currentLibros) => {
-            const isItemFound = currentLibros.find((item) => item.id === props.item.id);
+            const isItemFound = currentLibros.find((item) => item.id === props.items.id);
             console.log("isItemFound---->>", isItemFound);
             if(isItemFound) {
                 return currentLibros.map((item) => {
-                    if(item.id === props.item.id) {
+                    if(item.id === props.items.id) {
                         return { ...item, cantidad: Number(item.cantidad)+1, precioCarrito: item.precioCarrito + item.precio};
                     }
                     else{
@@ -19,7 +19,7 @@ export default function Cards(props) {
                     }
                 })
             }else{
-                return [...currentLibros, props.item];
+                return [...currentLibros, props.items];
             }
         })
     }
@@ -31,7 +31,7 @@ export default function Cards(props) {
                 <h5>{props.items.title}</h5>
                 <p>{props.items.description}</p>
                 <h4>{props.items.precio}</h4>
-                <button type="button" class="btn btn-outline-primary" onClick={addToCard}>Comprar</button>
+                <button type="button" class="btn btn-outline-primary" onClick={addToCart}>Comprar</button>
             </div>
         </div>
     )
