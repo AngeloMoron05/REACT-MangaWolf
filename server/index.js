@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 });
 
 const user = require("./controller/userController");
-app.post("/registro-usuario", user.register);
+app.post("/registro-usuario", user.registerDB);
 //app.use("/login", user.login);
 
 const PORT = 3001;
