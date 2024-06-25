@@ -18,6 +18,7 @@ export default function CarritoContents() {
             icon: 'question',
             title: '¿Esta seguro que desea vaciar el contenido del carrito de compras?',
             buttons: true,
+            showCancelButton: true,
             showConfirmButton: true,
             dangerMode: true,
         })
