@@ -9,8 +9,17 @@ import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import LoginIcon from '@mui/icons-material/Login';
 import {Link} from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 export default function Header() {
+
+    function whatsapp() {
+        const telefono = "3113784303";
+        const mensaje = "Hola. Quiero mas informacion.";
+        const url = `https://api.whatsapp.com/send?phone=${telefono}&texto=${encodeURIComponent(mensaje)}`;
+        window.open(url, "_blank");
+    }
+
     return (
         <div className='contenedor'>
             <nav className="navbar navbar-expand-lg">
@@ -35,8 +44,8 @@ export default function Header() {
                                 <a className="nav-link" href="#">Recursos</a>
                             </li>
                             <li className="nav-item itemLista">
-                                <LocalPhoneIcon className='negro'/>
-                                <a className="nav-link" href="#">Contacto</a>
+                                <WhatsAppIcon className='negro'/>
+                                <a className="nav-link" href="#" onClick={whatsapp}>Contacto</a>
                             </li>
                             <Link to='/registro'>
                                 <li className="nav-item itemLista">

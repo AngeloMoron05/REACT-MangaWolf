@@ -21,7 +21,8 @@ export default function Registro() {
     phone: "",
     borndate: "",
     password: "",
-    vrfpassword: ""
+    vrfpassword: "",
+    photo: "",
   })
 
   function func_errorId(){
@@ -53,6 +54,9 @@ export default function Registro() {
     seterrorVrfPassword(false);
     seterrorVrfPasswordEmpty(false);
   }
+  function func_errorPhoto(){
+    seterrorPhoto(false);
+  }
 
   const [errorID, seterrorID] = useState(false);
   const [errorNames, seterrorNames] = useState(false);
@@ -65,16 +69,29 @@ export default function Registro() {
   const [errorPassword, seterrorPassword] = useState(false);
   const [errorVrfPassword, seterrorVrfPassword] = useState(false);
   const [errorVrfPasswordEmpty, seterrorVrfPasswordEmpty] = useState(false);
+  const [errorPhoto, seterrorPhoto] = useState(false);
+  const [file, setFile] = useState(null);
+  const [vistaPrevia, setvistaPrevia] = useState(null);
 
   const form = useRef();
 
   const handleChange = (e) => {
-    const {name, value} = e.target;
+    /*const {name, value} = e.target;
     const newValues = {
       ...values,
       [name]: value,
     }
-    setValues(newValues);
+    setValues(newValues);*/
+
+    if (e.target.name === "photoInput"){
+      const file =  e.target.files ? e.target.files[0] : null;
+      setValues({...values, [e.target.name]: file})
+      setFile("")
+      const objectURL = window.URL.createObjectURL(file)
+      setvistaPrevia(objectURL)
+    }else{
+      setValues({...values, [e.target.name]: e.target.value})
+    }
   }
 
   const handleSubmit = (e) => {
@@ -125,6 +142,9 @@ export default function Registro() {
     }else if(values.vrfpassword!==values.password){
       seterrorVrfPassword(true);
       return;
+    }else if(file === null){
+      seterrorPhoto(true);
+      return;
     }
 
     /*fetch("http://localhost:3001/registro-usuario", {
@@ -136,13 +156,21 @@ export default function Registro() {
       body: JSON.stringify(values),
     })*/
     console.log(URL);
+
+    const formData = new FormData();
+    for (const [key, value] of Object.entries(values)){
+      formData.append(key, value);
+    }
+
+    console.log("formData ", formData)
+
     fetch(`${URL}/registro-usuario`, {
       method: "POST",
-      headers: {
+      /*headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-      },
-      body: JSON.stringify(values),
+      },*/
+      body: formData,
     })
     .then((response) => {
       if(response.status === 200) {
@@ -181,14 +209,13 @@ export default function Registro() {
 
   return (
     <div>
-      <Header/>
       <div className='bigcont'>
         <div className='cont'>
           <div className="titulo">
             <h2>Registrarse</h2>
           </div>
           <br></br>
-          <form onSubmit={handleSubmit} ref={form}>
+          <form onSubmit={handleSubmit} ref={form} encType='multipart/form-data'>
             <div class="form-group">
               <label for="exampleInputEmail1">Identificacion</label>
               <input id="id" type="number" class="form-control" placeholder="1234567890" name='id' onChange={handleChange} onClick={func_errorId}></input>
@@ -251,6 +278,14 @@ export default function Registro() {
               <input id="vrfpassword" type="password" class="form-control" name='vrfpassword' onChange={handleChange} onClick={func_errorVrfPassword}></input>
               {errorVrfPasswordEmpty ? <p className='error'>Debe ingresar de nuevo la contraseña.</p> : ""}
               {errorVrfPassword ? <p className='error'>Las contraseñas no coinciden.</p> : ""}
+            </div>
+            <br></br>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Seleccione imagen de perfil.</label>
+              <input id="photo" type="file" class="form-control" name='photoInput' accept='.jpg,.jpeg,.png,.gif,.jfif' onChange={handleChange} onClick={func_errorPhoto}></input>
+              {errorPhoto ? <p className='error'>Debe seleccionar una imagen de perfil.</p> : ""}
+              <img id="vistaPrevia" src={vistaPrevia} alt='' className='img-thumbnail'/>
             </div>
             <br></br>
 

@@ -1,79 +1,136 @@
-// const fs = require("fs").promises;
-// const path = require("path");
-// const { title } = require("process");
+const fs = require("fs").promises;
+const path = require("path");
+const { title } = require("process");
 
-// const userFilePath = path.join(
-//     __dirname,
-//     "../../src/components/usuariosRegistrados.json"
-// );
+const userFilePath = path.join(
+    __dirname,
+    "../../src/components/usuariosRegistrados.json"
+);
 
-// const controller = {
-//     register: async function (req, res) {
-//         try {
-//             //Leer el archivo JSON una sola vez
-//             const usersData = await fs.readFile(userFilePath, "utf-8");
-//             const users = JSON.parse(usersData);
+const configurationFireBase = require("../fireBaseConfiguration");
+const firebase = require("firebase/app");
+const {getStorage, ref, getDownloadURL, uploadBytesResumable} = require("firebase/storage");
 
-//             const ultimo = users.length;
-//             const usuarioNuevo = {
-//                 number: ultimo + 1,
-//                 id: req.body.id,
-//                 names: req.body.names,
-//                 lastname: req.body.lastname,
-//                 email: req.body.email,
-//                 adress: req.body.adress,
-//                 phone: req.body.phone,
-//                 borndate: req.body.borndate,
-//                 password: req.body.password,
-//                 status: "activo",
-//                 rol: "Usuario",
-//                 creationDate: new Date(),
-//             };
+firebase.initializeApp(configurationFireBase);
+const storage = getStorage();
 
-//             for(x of users){
-//                 if(x.email === req.body.email || x.id === req.body.id){
-//                     res.status(400).send("El email o correo ya existen");
-//                     return;
-//                 }
-//             }
+const controller = {
+    registerFB: async function (req, res) {
+        try {
+            //Leer el archivo JSON una sola vez
+            const usersData = await fs.readFile(userFilePath, "utf-8");
+            const users = JSON.parse(usersData);
 
-//             users.push(usuarioNuevo);
+            for(x of users){
+                if(x.email === req.body.email || x.id === req.body.id){
+                    res.status(400).send("El email o correo ya existen");
+                    return;
+                }
+            }
 
-//             //Escribir en el archivo JSON
-//             await fs.writeFile(userFilePath, JSON.stringify(users, null, 4));
+            const storageRef = ref(storage, req.file.originalname);
+            const metadata = {
+                contentType: req.file.mimetype,
+            }
+            const snapshot = await uploadBytesResumable(storageRef, req.file.buffer, metadata)
+            const downloadURL = await getDownloadURL(snapshot.ref)
 
-//             res.status(200).send("Usuario creado con exito");
-//         } catch (error){
-//             console.error("Error al procesar el registro: ", error);
-//             res.status(500).send("Error interno del servidor");
-//         }
-//     },
+            const ultimo = users.length;
+            const usuarioNuevo = {
+                number: ultimo + 1,
+                id: req.body.id,
+                names: req.body.names,
+                lastname: req.body.lastname,
+                email: req.body.email,
+                adress: req.body.adress,
+                phone: req.body.phone,
+                borndate: req.body.borndate,
+                password: req.body.password,
+                image: downloadURL,
+                status: "activo",
+                rol: "Usuario",
+                creationDate: new Date(),
+            };
 
-//     login: async function(req, res){
-//         try {
-//             const usersData = await fs.readFile(userFilePath, "utf-8");
-//             const users = JSON.parse(usersData);
+            users.push(usuarioNuevo);
 
-//             for(x of users){
-//                 if(x.email === req.body.email && x.password === req.body.password && x.rol === req.body.rol){
-//                     return res.json({
-//                         names: x.names,
-//                         lastname: x.lastname,
-//                         email: x.email,
-//                     });
-//                 }
-//             }
-//             res.json({ title: "error"});
-//         }catch(error){
-//             console.error("Error al procesar el registro: ", error);
-//             res.status(500).send("Error interno del servidor");
-//         }
-//     }
-// };
+            //Escribir en el archivo JSON
+            await fs.writeFile(userFilePath, JSON.stringify(users, null, 4));
 
-// module.exports = controller;
+            res.status(200).send("Usuario creado con exito");
+        } catch (error){
+            console.error("Error al procesar el registro: ", error);
+            res.status(500).send("Error interno del servidor");
+        }
+    },
 
-const express = require('express');
+    register: async function (req, res) {
+        try {
+            //Leer el archivo JSON una sola vez
+            const usersData = await fs.readFile(userFilePath, "utf-8");
+            const users = JSON.parse(usersData);
+
+            const ultimo = users.length;
+            const usuarioNuevo = {
+                number: ultimo + 1,
+                id: req.body.id,
+                names: req.body.names,
+                lastname: req.body.lastname,
+                email: req.body.email,
+                adress: req.body.adress,
+                phone: req.body.phone,
+                borndate: req.body.borndate,
+                password: req.body.password,
+                image: req.file.filename,
+                status: "activo",
+                rol: "Usuario",
+                creationDate: new Date(),
+            };
+
+            for(x of users){
+                if(x.email === req.body.email || x.id === req.body.id){
+                    res.status(400).send("El email o correo ya existen");
+                    return;
+                }
+            }
+
+            users.push(usuarioNuevo);
+
+            //Escribir en el archivo JSON
+            await fs.writeFile(userFilePath, JSON.stringify(users, null, 4));
+
+            res.status(200).send("Usuario creado con exito");
+        } catch (error){
+            console.error("Error al procesar el registro: ", error);
+            res.status(500).send("Error interno del servidor");
+        }
+    },
+
+    login: async function(req, res){
+        try {
+            const usersData = await fs.readFile(userFilePath, "utf-8");
+            const users = JSON.parse(usersData);
+
+            for(x of users){
+                if(x.email === req.body.email && x.password === req.body.password && x.rol === req.body.rol){
+                    return res.json({
+                        names: x.names,
+                        lastname: x.lastname,
+                        email: x.email,
+                    });
+                }
+            }
+            res.json({ title: "error"});
+        }catch(error){
+            console.error("Error al procesar el registro: ", error);
+            res.status(500).send("Error interno del servidor");
+        }
+    }
+};
+
+module.exports = controller;
+
+/*const express = require('express');
 const app = express();
 const axios = require('axios');
 const cors = require('cors');
@@ -155,4 +212,4 @@ const controller = {
     }
 }
 
-module.exports = controller;
+module.exports = controller;*/

@@ -9,6 +9,7 @@ import Swal  from 'sweetalert2';
 import Cookies from 'universal-cookie';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import GoogleOAuth from './googleOAuth/GoogleOAuth.js';
+import FireBaseAuth from './fireBase/FireBaseAuth.js';
 
 export default function Login() {
   const cookies = new Cookies();
@@ -115,7 +116,6 @@ export default function Login() {
 
   return (
     <div>
-      <Header/>
       <div className='bigcont'>
         <div className='cont'>
           <div className="titulo">
@@ -158,6 +158,9 @@ export default function Login() {
 
             <div className='btnGoogle'>
               <GoogleOAuth/>
+            </div>
+            <div className='btnGoogle'>
+              <FireBaseAuth/>
             </div>
           </form>
         </div>
